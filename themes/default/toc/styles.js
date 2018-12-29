@@ -1,5 +1,6 @@
 import styled, { css } from 'react-emotion'
 import { Link } from 'react-router-dom'
+import palette from '../palette'
 
 export const Wrapper = styled('nav')`
   margin: 60px 0 0 5px;
@@ -53,7 +54,7 @@ export const PageItem = styled('nav')`
     text-overflow: ellipsis;
 
     &:hover {
-      color: #5742C7;
+      color: ${palette.primary.dark};
     }
   }
 `
@@ -82,7 +83,7 @@ export const FolderItem = styled(Link)`
     content: "";
     width: 50px;
     height: 3px;
-    background: #6457DF;
+    background: ${palette.primary.main};
     position: absolute;
     top: -10px;
     left: 0;

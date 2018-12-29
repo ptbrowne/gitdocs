@@ -1,4 +1,5 @@
 import styled from 'react-emotion'
+import palette from '../palette'
 
 export const Wrapper = styled('div')`
   :hover {
@@ -14,7 +15,7 @@ export const CustomLogo = styled('div')`
 `
 
 export const GeneratedLogo = styled('div')`
-  color: #6457DF;
+  color: ${palette.primary.main};
   font-size: 1.6rem;
   font-weight: 700;
   text-decoration: none;

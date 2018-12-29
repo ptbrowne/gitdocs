@@ -1,6 +1,7 @@
 import styled, { css } from 'react-emotion'
 import { Accordion } from '@timberio/ui'
 import { filterProps } from '../utils'
+import palette from '../palette'
 
 const _iconBase = css`
   width: 30px;
@@ -111,8 +112,8 @@ export const NavList = styled(filterProps(Accordion, ['isFirst']))`
     &.active {
       font-weight: 600;
       ${props => props.isFirst && css`
-        color: #6457DF;
-        border-right: 3px solid #6457DF;
+        color: ${palette.primary.main};
+        border-right: 3px solid ${palette.primary.main};
       `}
       :hover {
         opacity: 1;

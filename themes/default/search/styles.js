@@ -1,4 +1,5 @@
 import styled from 'react-emotion'
+import palette from '../palette'
 
 export const Wrapper = styled('div')`
   flex: 1;
@@ -39,13 +40,13 @@ export const Result = styled('div')`
   background: ${props => props.selected ? '#f7f7fb' : '#FFF'};
   a { text-decoration: none }
   &:hover {
-    h5 { color: #6457DC; text-decoration: underline; }
+    h5 { color: ${palette.primary.main}; text-decoration: underline; }
   }
   h5 {
     font-weight: bold;
     text-decoration: none;
     margin: 0;
-    color: ${props => props.selected ? '#6457DC' : '#0d2b3e'};
+    color: ${props => props.selected ? palette.primary.main : '#0d2b3e'};
     text-decoration: ${props => props.selected ? 'underline' : 'none'};
   }
   p {
@@ -63,7 +64,7 @@ export const Result = styled('div')`
   }
   .url {
     font-size: 12px;
-    color: #5343a2;
+    color: ${palette.primary.darker};
   }
 `
 

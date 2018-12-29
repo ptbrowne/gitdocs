@@ -1,14 +1,15 @@
 import styled from 'react-emotion'
+import palette from '../palette'
 
 export const Wrapper = styled('div')`
   word-wrap: break-word;
   color: #2f3138;
-  
+
   a {
     text-decoration: none;
-    color: #5944CC;
+    color: ${palette.primary.dark};
   }
-  
+
   h1, h2, h3, h4 {
     font-weight: bold;
     text-decoration: none;
@@ -34,7 +35,7 @@ export const Wrapper = styled('div')`
   }
 
   blockquote {
-    border-left: 3px solid #b6b3da;
+    border-left: 3px solid ${palette.primary.light};
     padding-left: 1rem;
     font-style: italic;
   }
@@ -56,8 +57,8 @@ export const Wrapper = styled('div')`
     padding: 0 .15rem;
     display: inline-block;
     word-break: break-all;
-    background: #EEEAFE;
-    color: #5742CA;
+    background: ${palette.primary.lightest};
+    color: ${palette.primary.dark};
   }
 
   pre code {

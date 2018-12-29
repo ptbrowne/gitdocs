@@ -60,6 +60,7 @@ async function getCompiler (env, props) {
           NODE_ENV: env,
           PROPS: props,
         }),
+        WEBPACK_PROVIDED_CONFIG: JSON.stringify(props.config)
       }),
     ].filter(Boolean),
   })
