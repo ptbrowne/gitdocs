@@ -81,7 +81,7 @@ async function getConfig (customFile) {
   const masterConfig = deepmerge(DEFAULT_CONFIG, userConfig)
 
   masterConfig.temp = syspath.resolve(masterConfig.temp)
-  await fs.emptyDir(masterConfig.temp)
+  // await fs.emptyDir(masterConfig.temp)
   addToNodePath(masterConfig.temp)
 
   const { root } = masterConfig

@@ -7,13 +7,13 @@ const namespaces = {
 }
 
 function tempDir () {
-  tmp.setGracefulCleanup()
+  // tmp.setGracefulCleanup()
 
-  const dir = tmp.dirSync({
-    prefix: 'gitdocs-',
-  })
+  // const dir = tmp.dirSync({
+  //   prefix: 'gitdocs-',
+  // })
 
-  return dir.name
+  return '/tmp/gitdocs/'
 }
 
 module.exports = {
