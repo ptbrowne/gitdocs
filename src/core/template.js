@@ -33,7 +33,14 @@ function templateForProduction (entrypoints, props, route) {
   const hijacked = hijackConsole()
   const serverEntry = babelRequire('../../themes/server.js')
   const app = serverEntry.default(props, route)
-  const rendered = extractCritical(renderToString(app))
+
+  let rendered
+  try {
+    rendered = extractCritical(renderToString(app))
+  } catch (e) {
+    console.error(`Problem rendering ${route.input}`)
+    return 'Problem rendered'
+  }
 
   hijacked.restore()
 
