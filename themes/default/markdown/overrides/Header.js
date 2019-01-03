@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'react-emotion'
+import palette from '../../palette'
 
 const Link = styled('a')`
   color: rgba(0,0,0,.7);
@@ -14,13 +15,10 @@ const Link = styled('a')`
       content: "\u21b5";
       font-weight: bold;
       display: inline-block;
+      color: ${palette.primary.main};
     }
   }
 `
-
-const style = {
-  display: 'inline-block'
-}
 
 const levels = {
   1: 'h1',
@@ -46,9 +44,12 @@ export default function (props) {
       .join('-')
     : ''
 
-  const element = React.createElement(levels[level], { style }, children)
-
-  return level <= 2
-    ? <Link href={`#${itemId}`} id={itemId}>{element}</Link>
-    : element
+  const Klass = levels[level]
+  return (
+    <Klass>
+      { level <= 2
+        ? <Link style={{ color: 'inherit' }} href={`#${itemId}`} id={itemId}>{children}</Link>
+        : children }
+    </Klass>
+  )
 }
