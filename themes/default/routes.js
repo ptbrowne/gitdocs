@@ -2,6 +2,20 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Switch, Route, Redirect } from 'react-router-dom'
 
+const content404 = `# Oh no ! Page not found :(
+
+Unfortunately, you hit a dead link, please hit the back button.`
+
+const NotFoundPageMaker = Page => () => {
+  return <Page
+    pageData={{ sticky: false }}
+    route={{
+      toc: {},
+      content: content404
+    }} />
+}
+
+
 class Routes extends Component {
   route = ({ items = [], ...data }) => {
     const {
@@ -37,15 +51,16 @@ class Routes extends Component {
   }
 
   render () {
+    const { componentPage: Page } = this.props
+    const NotFoundPage = NotFoundPageMaker(Page)
     const {
       manifest,
-      component404: NotFound,
     } = this.props
-
+    const routes = this.route(manifest)
     return (
       <Switch>
-        {this.route(manifest)}
-        <Route component={NotFound} />
+        {routes}
+        <Route component={NotFoundPage} />
       </Switch>
     )
   }
