@@ -8,6 +8,7 @@ import TocPage from '../toc/page'
 import TocFolder from '../toc/folder'
 import { ConfigContext } from '../context'
 import { Wrapper, ContentWrapper, MarkdownWrapper } from './styles'
+import path from 'path'
 
 const Content = ({ content, config, route }) => {
   const defaultContent = '##### _You don\'t have any content here yet!_'
@@ -58,7 +59,7 @@ export default class Page extends Component {
       try {
         const {
           data: { content },
-        } = await axios.get('index.json')
+        } = await axios.get(path.join(this.props.route.url, 'index.json'))
         this.setState({ content, loading: false })
       } catch (err) {
         console.error(`Could not get page content: ${err}`)

@@ -40,7 +40,7 @@ function titlify (str) {
     .join(' ')
 }
 
-function routify (str, base = '') {
+function routify (str, base = '', shouldRemoveIndex) {
   // turn string into a slug
   const slug = str
     .trim()
@@ -48,8 +48,10 @@ function routify (str, base = '') {
     .replace(/ /g, '-')
 
   // trim stuff from the string
-  const normalized = removeSlashes(removeIndex(removeExt(slug)))
-
+  let normalized = removeSlashes(removeExt(slug))
+  if (shouldRemoveIndex) {
+    normalized = removeIndex(normalized)
+  }
   // wrap in leading and trailing slashes
   return `/${normalized}${normalized !== '' ? '/' : ''}`
 }

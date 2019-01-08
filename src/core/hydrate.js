@@ -105,6 +105,13 @@ async function hydrateTree (tree, config, opts = {}) {
     const metaData = await getMetaData(hoistedItem, itemParentItems)
 
     // start hydrating the current item
+
+    const itemUrl = syspath.resolve(
+      '/', // don't resolve from the cwd
+      itemParent.urlWithoutIndex || itemParent.path || config.baseURL,
+      metaData.url || path_relative,
+      hoistedItem.index ? hoistedItem.path_relative : ''
+    )
     const hydratedItem = {
       path: path_relative,
       title: metaData.title || (
@@ -114,13 +121,8 @@ async function hydrateTree (tree, config, opts = {}) {
           // use the project name as the title if we are at the root
           : config.name
       ),
-      url: ourpath.routify(
-        syspath.resolve(
-          '/', // don't resolve from the cwd
-          itemParent.url || itemParent.path || config.baseURL,
-          metaData.url || path_relative,
-        )
-      ),
+      url: ourpath.routify(itemUrl),
+      urlWithoutIndex: ourpath.routify(itemUrl, '', true)
     }
 
     if (metaData.draft && !opts.includeDrafts) {

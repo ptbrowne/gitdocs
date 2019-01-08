@@ -46,6 +46,14 @@ class Routes extends Component {
             from={data.url.slice(0, -1)}
             to={data.url}
           />,
+        data.url !== '/' &&
+          <Redirect
+            exact
+            strict
+            key={`redirect-${data.url}-md`}
+            from={data.url.slice(0, -1) + '.md'}
+            to={data.url}
+          />,
       ],
     ]
   }

@@ -10,6 +10,6 @@ export default function (props) {
   } else if (!href) {
     return <a {...props}>{children}</a>
   } else {
-    return <Link {...rest} to={href}>{children}</Link>
+    return <Link {...rest} to={'../' + href}>{children}</Link>
   }
 }
