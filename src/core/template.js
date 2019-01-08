@@ -30,7 +30,7 @@ function templateForDevelopment (entrypoints) {
 function templateForProduction (entrypoints, props, route) {
   process.env.NODE_ENV = 'production'
 
-  const hijacked = hijackConsole()
+  // const hijacked = hijackConsole()
   const serverEntry = babelRequire('../../themes/server.js')
   const app = serverEntry.default(props, route)
 
@@ -42,7 +42,7 @@ function templateForProduction (entrypoints, props, route) {
     return 'Problem rendered'
   }
 
-  hijacked.restore()
+  // hijacked.restore()
 
   const helmet = Helmet.renderStatic()
   const template = `
