@@ -22,14 +22,21 @@ module.exports = async (entrypoints, props) => {
       item.content = await getContent(item.input)
       const template = await templateForProduction(entrypoints, props, item)
 
-      const outputHtml = syspath.join(item.outputDir, 'index.html')
-      const outputJson = syspath.join(item.outputDir, 'index.json')
+      const directories = [item.outputDir]
+      if (item.outputDirWithoutIndex) {
+        directories.push(item.outputDirWithoutIndex)
+      }
+      for (let dir of directories) {
+        const outputHtml = syspath.join(dir, 'index.html')
+        const outputJson = syspath.join(dir, 'index.json')
 
-      await fs.outputFile(outputHtml, template)
-      await fs.outputJson(outputJson, {
-        title: item.title,
-        content: item.content,
-      })
+        await fs.outputFile(outputHtml, template)
+        await fs.outputJson(outputJson, {
+          title: item.title,
+          content: item.content,
+        })
+
+      }
     }
 
     if (items) {

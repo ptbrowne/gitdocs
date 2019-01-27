@@ -164,6 +164,9 @@ async function hydrateTree (tree, config, opts = {}) {
     if (hoistedItem.type === 'file') {
       hydratedItem.input = hoistedItem.path
       hydratedItem.outputDir = syspath.join(config.output, hydratedItem.url)
+      if (hydratedItem.url !== hydratedItem.urlWithoutIndex) {
+        hydratedItem.outputDirWithoutIndex = syspath.join(config.output, hydratedItem.urlWithoutIndex)
+      }
 
       // pull in source items if one exists
       if (metaData.source) {
