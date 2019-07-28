@@ -29,6 +29,11 @@ const levels = {
   6: 'h6',
 }
 
+const slugify = text => text
+  .toLowerCase()
+  .split(' ')
+  .join('-')
+
 export default function (props) {
   const {
     level = 1,
@@ -38,10 +43,7 @@ export default function (props) {
   // Turn headers into linkable IDs
   const text = children[0]
   const itemId = typeof text === 'string'
-    ? text
-      .toLowerCase()
-      .split(' ')
-      .join('-')
+    ? slugify(text)
     : ''
 
   const Klass = levels[level]
