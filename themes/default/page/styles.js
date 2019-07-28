@@ -35,3 +35,16 @@ export const MarkdownWrapper = styled('div')`
     padding: 0;
   }
 `
+
+export const EditLinkWrapper = styled('div')`
+  position: absolute;
+  top: 30px;
+  right: 50px;
+`
+
+export const EditLinkA = styled('a')`
+  text-decoration: none;
+  font-weight: bold;
+  color: #ccc;
+  font-size: 1rem;
+`

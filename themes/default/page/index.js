@@ -7,8 +7,37 @@ import Loading from '../loading'
 import TocPage from '../toc/page'
 import TocFolder from '../toc/folder'
 import { ConfigContext } from '../context'
-import { Wrapper, ContentWrapper, MarkdownWrapper } from './styles'
+import { Wrapper, ContentWrapper, MarkdownWrapper, EditLinkA, EditLinkWrapper } from './styles'
 import path from 'path'
+
+const mkEditLink = (breadcrumbs) => {
+  let path = ''
+  for (let i = 0; i < breadcrumbs.length; i++) {
+    const crumb = breadcrumbs[i]
+    if (crumb && crumb.source) {
+      path = `${crumb.source.replace(/\.git$/, '')}/edit/master/${crumb.source_root}/`
+    } else if (crumb.path) {
+      path = path + crumb.path + (i !== breadcrumbs.length - 1 ? '/' : '')
+    }
+  }
+  console.log(path)
+  if (path.indexOf('http') !== 0) {
+    return null
+  }
+  return path
+}
+
+class EditLink extends Component {
+  render () {
+    const breadcrumbs = this.props.route.breadcrumbs
+    if (!breadcrumbs) { return null }
+    const link = mkEditLink(breadcrumbs)
+    if (!link) { return null }
+    return <EditLinkWrapper>
+      <EditLinkA href={link}>Edit on GitHub</EditLinkA>
+    </EditLinkWrapper>
+  }
+}
 
 const Content = ({ content, config, route }) => {
   const defaultContent = '##### _You don\'t have any content here yet!_'
@@ -76,7 +105,7 @@ export default class Page extends Component {
   render () {
     const {
       route,
-      pageData: { sticky },
+      pageData,
     } = this.props
 
     const {
@@ -96,6 +125,8 @@ export default class Page extends Component {
             {Array.isArray(route.breadcrumbs) &&
               <Breadcrumbs items={route.breadcrumbs} />}
 
+            {<EditLink route={route} pageData={pageData} />}
+
             {loading
               ? <Loading />
               : (
@@ -108,7 +139,7 @@ export default class Page extends Component {
                     />
 
                     {route.toc.page &&
-                      <TocPage items={route.toc.page} sticky={sticky} />}
+                      <TocPage items={route.toc.page} sticky={pageData.sticky} />}
                   </ContentWrapper>
 
                   {route.toc.folder &&
