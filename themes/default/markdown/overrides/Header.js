@@ -61,7 +61,7 @@ export default function (props) {
   const Klass = levels[level]
   return (
     <Klass>
-      { level <= 3
+      { level <= 4
         ? <Link style={{ color: 'inherit' }} href={`#${itemId}`} id={itemId}>{children}</Link>
         : children }
     </Klass>
