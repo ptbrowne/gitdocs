@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { PageItem } from './styles'
+import { HashLink } from 'react-router-hash-link'
 
 const Toc = (props) => {
   // Don't show this if there aren't enough headers
@@ -9,9 +10,9 @@ const Toc = (props) => {
   // Create TOC hierarchy and link to headers
   const items = props.items.map(t => (
     <li key={`${props.items}-${t.slug}`}>
-      <a href={`#${t.slug}`}>
+      <HashLink to={`#${t.slug}`}>
         {t.content}
-      </a>
+      </HashLink>
     </li>
   ))
 

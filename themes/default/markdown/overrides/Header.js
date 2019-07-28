@@ -31,6 +31,7 @@ const levels = {
 
 const slugify = text => text
   .toLowerCase()
+  .replace(/[^a-z -]/g, '')
   .split(' ')
   .join('-')
 
@@ -49,7 +50,7 @@ export default function (props) {
   const Klass = levels[level]
   return (
     <Klass>
-      { level <= 2
+      { level <= 3
         ? <Link style={{ color: 'inherit' }} href={`#${itemId}`} id={itemId}>{children}</Link>
         : children }
     </Klass>
