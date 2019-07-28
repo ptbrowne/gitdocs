@@ -13,8 +13,8 @@ module.exports = async (dir, repo, branch, root) => {
     if (existence) {
       try {
         await simpleGit(repoDir)
-          .silent(true)
-          .fetch()
+          .silent(process.env.GIT_DOCS_GIT_FETCH_SILENT !== 'false')
+          .fetch({ depth: 0 })
       } catch (e) {
         console.warn(`Could not fetch ${repoDir}`)
       }
