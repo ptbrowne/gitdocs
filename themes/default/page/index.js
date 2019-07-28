@@ -56,7 +56,7 @@ const Content = ({ content, config, route }) => {
   return (
     <MarkdownWrapper>
       <Markdown
-        source={md || defaultContent}
+        source={md || (route.toc === undefined ? defaultContent : '')}
         {...config.syntax}
       />
     </MarkdownWrapper>
