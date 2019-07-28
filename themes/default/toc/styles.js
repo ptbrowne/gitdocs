@@ -17,6 +17,7 @@ export const PageItem = styled('nav')`
       div {
         position: fixed;
         top: 30px;
+        right: 30px;
         width: 150px;
       }
     }
