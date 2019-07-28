@@ -10,7 +10,15 @@ import { ConfigContext } from '../context'
 import { Wrapper, ContentWrapper, MarkdownWrapper, EditLinkA, EditLinkWrapper } from './styles'
 import path from 'path'
 
-const mkEditLink = (breadcrumbs) => {
+/**
+ * Make URL to edit a page. It only works with pages from issued from a directory
+ * with a source
+ */
+const mkEditURL = route => {
+  const breadcrumbs = route.breadcrumbs
+  if (!breadcrumbs) {
+    return null
+  }
   let path = ''
   for (let i = 0; i < breadcrumbs.length; i++) {
     const crumb = breadcrumbs[i]
@@ -20,7 +28,6 @@ const mkEditLink = (breadcrumbs) => {
       path = path + crumb.path + (i !== breadcrumbs.length - 1 ? '/' : '')
     }
   }
-  console.log(path)
   if (path.indexOf('http') !== 0) {
     return null
   }
@@ -29,9 +36,7 @@ const mkEditLink = (breadcrumbs) => {
 
 class EditLink extends Component {
   render () {
-    const breadcrumbs = this.props.route.breadcrumbs
-    if (!breadcrumbs) { return null }
-    const link = mkEditLink(breadcrumbs)
+    const link = mkEditURL(this.props.route)
     if (!link) { return null }
     return <EditLinkWrapper>
       <EditLinkA href={link}>Edit on GitHub</EditLinkA>

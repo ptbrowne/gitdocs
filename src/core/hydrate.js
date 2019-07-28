@@ -17,7 +17,16 @@ async function getMetaData (item, parentItems) {
   const dataFromParent = parentItems
     .find(i => i.path === item.path_relative)
 
-  return { ...data, ...dataFromParent }
+  const metadata = { ...data, ...dataFromParent }
+
+  // Default metadata source configuration values if absent
+  if (metadata.source) {
+    metadata.source_type = metadata.source_type || 'local'
+    metadata.source_root = metadata.source_root || 'docs'
+    metadata.source_branch = metadata.source_branch || 'docs'
+  }
+
+  return metadata
 }
 
 function normalizeItems (data) {
