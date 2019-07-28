@@ -35,6 +35,19 @@ const slugify = text => text
   .split(' ')
   .join('-')
 
+const asText = child => {
+  if (typeof child === 'string') {
+    return child
+  } else if (typeof child.props.children === 'string') {
+    return child.props.children
+  }
+  return collectText(child.props.children)
+}
+
+const collectText = children => {
+  return Array.from(children).filter(Boolean).map(asText).join(' ')
+}
+
 export default function (props) {
   const {
     level = 1,
@@ -42,10 +55,8 @@ export default function (props) {
   } = props
 
   // Turn headers into linkable IDs
-  const text = children[0]
-  const itemId = typeof text === 'string'
-    ? slugify(text)
-    : ''
+  const text = collectText(children)
+  const itemId = slugify(text)
 
   const Klass = levels[level]
   return (
