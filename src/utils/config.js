@@ -25,7 +25,7 @@ const DEFAULT_CONFIG = {
   domain: '',
   crawlable: true,
   host: 'localhost',
-  port: 8000,
+  port: process.env.GIT_DOCS_PORT || 8000,
   languages: ['bash', 'json'],
   header_links: [],
   theme: 'default',
