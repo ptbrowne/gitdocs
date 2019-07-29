@@ -2,6 +2,7 @@ const syspath = require('path')
 const markdownToc = require('markdown-toc')
 const ourpath = require('../utils/path')
 const { getFrontmatterOnly } = require('../utils/frontmatter')
+const { getItemsFromTocYml } = require('../utils/tocyml')
 const { mergeLeftByKey } = require('../utils/merge')
 const { getContent } = require('./filesystem')
 const { walkSource } = require('./source')
@@ -17,7 +18,12 @@ async function getMetaData (item, parentItems) {
   const dataFromParent = parentItems
     .find(i => i.path === item.path_relative)
 
-  const metadata = { ...data, ...dataFromParent }
+  const tocYmlData = {}
+  if (item.tocyml) {
+    tocYmlData.items = getItemsFromTocYml(item.tocyml)
+  }
+
+  const metadata = { ...data, ...dataFromParent, ...tocYmlData }
 
   // Default metadata source configuration values if absent
   if (metadata.source) {
@@ -149,7 +155,12 @@ async function hydrateTree (tree, config, opts = {}) {
 
     // continue the breadcrumb from parent
     if (config.breadcrumbs && metaData.breadcrumbs !== false) {
-      const breadcrumb = { title: hydratedItem.title }
+      const breadcrumb = {
+        title: hydratedItem.title,
+        path: path_relative,
+        source: metaData.source,
+        source_root: metaData.source_root
+      }
 
       const breadcrumbs = []
       const breadcrumbsParent = itemParent.breadcrumbs || []
@@ -181,6 +192,7 @@ async function hydrateTree (tree, config, opts = {}) {
       if (metaData.source) {
         const source = await walkSource(config.temp, hoistedItem.path, metaData)
         const sourceHydrated = await _recursive(source, hydratedItem)
+        hydratedItem.metaData = metaData
 
         // don't inherit these items from the source
         delete sourceHydrated.path

@@ -121,6 +121,11 @@ async function dirTree (baseDir, opts = {}) {
 
       // get rid of items that were excluded
       item.children = children
+
+      const tocyml = syspath.join(item.path, 'toc.yml')
+      if (fs.existsSync(tocyml)) {
+        item.tocyml = fs.readFileSync(tocyml).toString()
+      }
     }
 
     // if a file, can't recurse any further
